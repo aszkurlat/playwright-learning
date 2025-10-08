@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Dashboard tests', () => {
     test('Quick payment with correct data', async ({ page }) => {
         await page.goto('https://demo-bank.vercel.app/');
-        await page.getByTestId('login-input').fill('User_2');
+        await page.getByTestId('login-input').fill('User_222');
         await page.getByTestId('password-input').fill('password');
         await page.getByTestId('login-button').click();
 
