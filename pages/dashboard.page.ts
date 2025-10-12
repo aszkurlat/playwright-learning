@@ -1,4 +1,5 @@
 import { Page, Locator } from '@playwright/test';
+import { SideMenuComponent } from '../components/side-menu.component';
 
 export class DashboardPage {
     transferReceiverInput: Locator;
@@ -17,6 +18,8 @@ export class DashboardPage {
 
     moneyValueText: Locator;
     userNameText: Locator;
+
+    sideMenu: SideMenuComponent;
 
     constructor(private page: Page) {
         this.transferReceiverInput = this.page.locator('#widget_1_transfer_receiver');
@@ -39,5 +42,6 @@ export class DashboardPage {
 
         this.moneyValueText = this.page.locator('#money_value');
         this.userNameText = this.page.getByTestId('user-name');
+        this.sideMenu = new SideMenuComponent(this.page);
     }
 }
