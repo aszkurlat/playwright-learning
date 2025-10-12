@@ -7,7 +7,7 @@ test.describe('User login to Demobank', () => {
     await page.goto("/");
   });
 
-  test.only('Successful login with correct credentials', async ({ page }) => {
+  test('Successful login with correct credentials', async ({ page }) => {
     // Act
     const loginPage = new LoginPage(page);
     await loginPage.loginInput.fill(loginData.userId);
@@ -18,7 +18,7 @@ test.describe('User login to Demobank', () => {
     await expect(loginPage.userName).toHaveText(loginData.expectedUserName);
   });
 
-  test.only('Unsuccessful login with too short username', async ({ page }) => {
+  test('Unsuccessful login with too short username', async ({ page }) => {
     const loginPage = new LoginPage(page);
     // Act
     await loginPage.loginInput.fill(loginData.incorrectLogin)
@@ -28,7 +28,7 @@ test.describe('User login to Demobank', () => {
     await expect(loginPage.loginError).toHaveText(loginData.expectedErrorMessage);
   });
 
-  test.only('Unsuccessful login with too short password', async ({ page }) => {
+  test('Unsuccessful login with too short password', async ({ page }) => {
     const loginPage = new LoginPage(page);
     // Act
     await loginPage.loginInput.fill(loginData.userId);
