@@ -1,4 +1,6 @@
 export const dashboardData = {
+    userId: 'UserTest',
+    userPassword: 'Qwerty12',
     receiverId: '2',
     transferAmount: '150',
     transferTitle: 'Nike Shoes',
