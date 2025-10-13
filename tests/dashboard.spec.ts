@@ -3,9 +3,13 @@ import { dashboardData } from '../test-data/dashboard.data';
 import { DashboardPage } from '../pages/dashboard.page';
 
 test.describe('Dashboard tests', () => {
-
+    // tu zmiana 1
+    let dashboardPage: DashboardPage;
     test.beforeEach(async ({ page }) => {
         await page.goto("/");
+        // tu zmiana 2
+        dashboardPage = new DashboardPage(page);
+
         await page.getByTestId('login-input').fill(dashboardData.userId);
         await page.getByTestId('password-input').fill(dashboardData.userPassword);
         await page.getByTestId('login-button').click();
@@ -16,7 +20,6 @@ test.describe('Dashboard tests', () => {
     test('Quick payment with correct data', async ({ page }) => {
 
         // Act
-        const dashboardPage = new DashboardPage(page);
         await dashboardPage.transferReceiverInput.selectOption(dashboardData.receiverId);
         await dashboardPage.transferAmountInput.fill(dashboardData.transferAmount);
         await dashboardPage.transferTitleInput.fill(dashboardData.transferTitle);
@@ -34,7 +37,6 @@ test.describe('Dashboard tests', () => {
         const expectedMessage = `Doładowanie wykonane! ${dashboardData.topUpAmount},00PLN na numer ${dashboardData.topUpReceiver}`;
 
         // Act
-        const dashboardPage = new DashboardPage(page);
         await dashboardPage.topUpReceiverInput.selectOption(dashboardData.topUpReceiver);
         await dashboardPage.topUpAmountInput.fill(dashboardData.topUpAmount);
         await dashboardPage.topUpAgreementCheckbox.click();
@@ -48,7 +50,6 @@ test.describe('Dashboard tests', () => {
 
     test('Correct balance after successful mobile top-up', async ({ page }) => {
         // Arrange
-        const dashboardPage = new DashboardPage(page);
         const initialBalance = await dashboardPage.moneyValueText.innerText();
         const expectedBalance = Number(initialBalance) - Number(dashboardData.topUpAmount);
 
