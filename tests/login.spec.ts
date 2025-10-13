@@ -1,23 +1,24 @@
 import { test, expect } from '@playwright/test';
 import { loginData } from '../test-data/login.data';
 import { LoginPage } from '../pages/login.page';
+import { DashboardPage } from '../pages/dashboard.page';
 
 test.describe('User login to Demobank', () => {
-  //tu zmiana
+
   let loginPage: LoginPage;
+
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
     loginPage = new LoginPage(page);
   });
 
-  test('Successful login with correct credentials', async () => {
+  test('Successful login with correct credentials', async ({ page }) => {
     // Act
-    await loginPage.loginInput.fill(loginData.userId);
-    await loginPage.passwordInput.fill(loginData.userPassword);
-    await loginPage.loginButton.click();
+    await loginPage.login(loginData.userId, loginData.userPassword);
 
     // Assert
-    await expect(loginPage.userName).toHaveText(loginData.expectedUserName);
+    const dashboardPage = new DashboardPage(page);
+    await expect(dashboardPage.userNameText).toHaveText(loginData.expectedUserName);
   });
 
   test('Unsuccessful login with too short username', async () => {

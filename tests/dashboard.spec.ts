@@ -1,20 +1,20 @@
 import { test, expect } from '@playwright/test';
 import { dashboardData } from '../test-data/dashboard.data';
 import { DashboardPage } from '../pages/dashboard.page';
+import { LoginPage } from '../pages/login.page';
+import { loginData } from '../test-data/login.data';
 
 test.describe('Dashboard tests', () => {
-    // tu zmiana 1
+
     let dashboardPage: DashboardPage;
     test.beforeEach(async ({ page }) => {
+
         await page.goto("/");
-        // tu zmiana 2
+
         dashboardPage = new DashboardPage(page);
+        const loginPage = new LoginPage(page);
 
-        await page.getByTestId('login-input').fill(dashboardData.userId);
-        await page.getByTestId('password-input').fill(dashboardData.userPassword);
-        await page.getByTestId('login-button').click();
-
-        await page.waitForURL('https://demo-bank.vercel.app/pulpit.html');
+        await loginPage.login(loginData.userId, loginData.userPassword);
     })
 
     test('Quick payment with correct data', async ({ page }) => {
