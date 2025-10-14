@@ -17,14 +17,10 @@ test.describe('Dashboard tests', () => {
         await loginPage.login(loginData.userId, loginData.userPassword);
     })
 
-    test('Quick payment with correct data', async ({ page }) => {
+    test('Quick payment with correct data', async () => {
 
         // Act
-        await dashboardPage.transferReceiverInput.selectOption(dashboardData.receiverId);
-        await dashboardPage.transferAmountInput.fill(dashboardData.transferAmount);
-        await dashboardPage.transferTitleInput.fill(dashboardData.transferTitle);
-        await dashboardPage.transferButton.click();
-        await dashboardPage.actionCloseButton.click();
+        await dashboardPage.executeQuickPayment(dashboardData.receiverId, dashboardData.transferAmount, dashboardData.transferTitle);
 
         // Assert
         await expect(dashboardPage.messageText).toHaveText(
@@ -32,34 +28,24 @@ test.describe('Dashboard tests', () => {
         );
     });
 
-    test('Successful mobile top-up', async ({ page }) => {
+    test('Successful mobile top-up', async () => {
         // Arrange
         const expectedMessage = `Doładowanie wykonane! ${dashboardData.topUpAmount},00PLN na numer ${dashboardData.topUpReceiver}`;
 
         // Act
-        await dashboardPage.topUpReceiverInput.selectOption(dashboardData.topUpReceiver);
-        await dashboardPage.topUpAmountInput.fill(dashboardData.topUpAmount);
-        await dashboardPage.topUpAgreementCheckbox.click();
-
-        await dashboardPage.topUpExecuteButton.click();
-        await dashboardPage.actionCloseButton.click();
+        await dashboardPage.executeMobileTopUp(dashboardData.topUpReceiver, dashboardData.topUpAmount);
 
         // Assert
         await expect(dashboardPage.messageText).toHaveText(expectedMessage);
     });
 
-    test('Correct balance after successful mobile top-up', async ({ page }) => {
+    test('Correct balance after successful mobile top-up', async () => {
         // Arrange
         const initialBalance = await dashboardPage.moneyValueText.innerText();
         const expectedBalance = Number(initialBalance) - Number(dashboardData.topUpAmount);
 
         // Act
-        await dashboardPage.topUpReceiverInput.selectOption(dashboardData.topUpReceiver);
-        await dashboardPage.topUpAmountInput.fill(dashboardData.topUpAmount);
-        await dashboardPage.topUpAgreementCheckbox.click();
-
-        await dashboardPage.topUpExecuteButton.click();
-        await dashboardPage.actionCloseButton.click();
+        await dashboardPage.executeMobileTopUp(dashboardData.topUpReceiver, dashboardData.topUpAmount);
 
         // Assert
         await expect(dashboardPage.moneyValueText).toHaveText(`${expectedBalance}`);
