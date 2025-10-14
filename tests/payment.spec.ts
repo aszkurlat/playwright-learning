@@ -20,7 +20,7 @@ test.describe('Payment tests', () => {
 
     });
 
-    test('Simple payment', async () => {
+    test('Simple payment @payment @integration', async () => {
         // Arrange
         const expectedMessage = `Przelew wykonany! ${paymentData.transferAmount},00PLN dla ${paymentData.transferReceiver}`;
 

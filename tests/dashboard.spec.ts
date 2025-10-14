@@ -17,7 +17,7 @@ test.describe('Dashboard tests', () => {
         await loginPage.login(loginData.userId, loginData.userPassword);
     })
 
-    test('Quick payment with correct data', async () => {
+    test('Quick payment with correct data @dashboard @integration', async () => {
 
         // Act
         await dashboardPage.executeQuickPayment(dashboardData.receiverId, dashboardData.transferAmount, dashboardData.transferTitle);
@@ -28,7 +28,7 @@ test.describe('Dashboard tests', () => {
         );
     });
 
-    test('Successful mobile top-up', async () => {
+    test('Successful mobile top-up @dashboard @integration', async () => {
         // Arrange
         const expectedMessage = `Doładowanie wykonane! ${dashboardData.topUpAmount},00PLN na numer ${dashboardData.topUpReceiver}`;
 
@@ -39,7 +39,7 @@ test.describe('Dashboard tests', () => {
         await expect(dashboardPage.messageText).toHaveText(expectedMessage);
     });
 
-    test('Correct balance after successful mobile top-up', async () => {
+    test('Correct balance after successful mobile top-up @dashboard @integration', async () => {
         // Arrange
         const initialBalance = await dashboardPage.moneyValueText.innerText();
         const expectedBalance = Number(initialBalance) - Number(dashboardData.topUpAmount);

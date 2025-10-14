@@ -12,7 +12,7 @@ test.describe('User login to Demobank', () => {
     loginPage = new LoginPage(page);
   });
 
-  test('Successful login with correct credentials', async ({ page }) => {
+  test('Successful login with correct credentials @login @smoke', async ({ page }) => {
     // Act
     await loginPage.login(loginData.userId, loginData.userPassword);
 
@@ -21,7 +21,7 @@ test.describe('User login to Demobank', () => {
     await expect(dashboardPage.userNameText).toHaveText(loginData.expectedUserName);
   });
 
-  test('Unsuccessful login with too short username', async () => {
+  test('Unsuccessful login with too short username @login', async () => {
     // Act
     await loginPage.loginInput.fill(loginData.incorrectLogin)
     await loginPage.passwordInput.click();
@@ -30,7 +30,7 @@ test.describe('User login to Demobank', () => {
     await expect(loginPage.loginError).toHaveText(loginData.expectedErrorMessage);
   });
 
-  test('Unsuccessful login with too short password', async () => {
+  test('Unsuccessful login with too short password @login', async () => {
     // Act
     await loginPage.loginInput.fill(loginData.userId);
     await loginPage.passwordInput.fill(loginData.incorrectPassword);
