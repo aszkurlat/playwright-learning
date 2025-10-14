@@ -16,7 +16,7 @@ export class LoginPage {
         this.passwordError = this.page.getByTestId('error-login-password');
         this.userName = this.page.getByTestId('user-name');
     }
-
+    
 
     async login(userId: string, userPassword: string): Promise<void> {
         await this.loginInput.fill(userId);

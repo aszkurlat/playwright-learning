@@ -25,12 +25,13 @@ test.describe('Payment tests', () => {
         const expectedMessage = `Przelew wykonany! ${paymentData.transferAmount},00PLN dla ${paymentData.transferReceiver}`;
 
         // Act
-        await paymentPage.transferReceiverInput.fill(paymentData.transferReceiver);
+        paymentPage.makeTransfer(paymentData.transferReceiver, paymentData.transferAccount, paymentData.transferAmount);
+        // await paymentPage.transferReceiverInput.fill(paymentData.transferReceiver);
 
-        await paymentPage.transferToInput.fill(paymentData.transferAccount);
-        await paymentPage.transferAmountInput.fill(paymentData.transferAmount);
-        await paymentPage.transferButton.click();
-        await paymentPage.actionCloseButton.click();
+        // await paymentPage.transferToInput.fill(paymentData.transferAccount);
+        // await paymentPage.transferAmountInput.fill(paymentData.transferAmount);
+        // await paymentPage.transferButton.click();
+        // await paymentPage.actionCloseButton.click();
 
         // Assert
         await expect(paymentPage.messageText).toHaveText(expectedMessage);
