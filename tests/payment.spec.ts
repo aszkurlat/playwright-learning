@@ -20,7 +20,7 @@ test.describe('Payment tests', () => {
 
     });
 
-    test('Simple payment', { tag: ["@payment", "@integration"] }, async () => {
+    test('Simple payment', { tag: ["@payment", "@integration"], annotation: { type: 'documentation', description: 'More to find at: https://jaktestowac.pl/course/playwright-wprowadzenie/' } }, async () => {
         // Arrange
         const expectedMessage = `Przelew wykonany! ${paymentData.transferAmount},00PLN dla ${paymentData.transferReceiver}`;
 

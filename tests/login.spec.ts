@@ -12,7 +12,7 @@ test.describe('User login to Demobank', () => {
     loginPage = new LoginPage(page);
   });
 
-  test('Successful login with correct credentials', { tag: ["@login", "@smoke"] }, async ({ page }) => {
+  test('Successful login with correct credentials', { tag: ["@login", "@smoke"], annotation: { type: 'Happy path', description: "Basic happy path test for login" }  }, async ({ page }) => {
     // Act
     await loginPage.login(loginData.userId, loginData.userPassword);
 
