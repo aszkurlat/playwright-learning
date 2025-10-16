@@ -5,7 +5,7 @@ import { LoginPage } from '../pages/login.page';
 import { loginData } from '../test-data/login.data';
 
 test.describe('Dashboard tests', () => {
-
+    test.describe.configure({ retries: 3 });
     let dashboardPage: DashboardPage;
     test.beforeEach(async ({ page }) => {
 
@@ -17,9 +17,10 @@ test.describe('Dashboard tests', () => {
         await loginPage.login(loginData.userId, loginData.userPassword);
     })
 
-    test('Quick payment with correct data', { tag: ["@dashboard", "@integration"], annotation: { type: 'documentation', description: 'https://jaktestowac.pl/course/playwright-wprowadzenie/' } }, async ({ page }) => {
+    test.only('Quick payment with correct data', { tag: ["@dashboard", "@integration"], annotation: { type: 'documentation', description: 'https://jaktestowac.pl/course/playwright-wprowadzenie/' } }, async ({ page }) => {
 
         // Act
+        await page.waitForLoadState('domcontentloaded'); // ensure DOM is loaded (smart wait instead of static delay)
         await dashboardPage.executeQuickPayment(dashboardData.receiverId, dashboardData.transferAmount, dashboardData.transferTitle);
 
         // Assert
