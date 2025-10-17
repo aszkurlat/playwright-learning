@@ -6,12 +6,27 @@ export const test = base.extend({
 
         page.on('console', (msg) => {
             if (msg.type() === 'error') {
-                errors.push(`Error message: ${msg.text()}`);
+                errors.push(`Console error: ${msg.text()}`);
             }
+        });
+
+        page.on('pageerror', (err) => {
+            errors.push(`Page error: ${err.message}`);
+        });
+
+        page.on('response', (res) => {
+            if (res.status() >= 400) {
+                errors.push(`HTTP ${res.status()}: ${res.url()}`);
+            }
+        });
+
+        page.on('dialog', (dialog) => {
+            errors.push(`Unexpected dialog: ${dialog.message()}`);
+            dialog.dismiss();
         });
 
         await use(page);
 
-        expect(errors, `There were console errors:\n${errors.join('\n')}`).toEqual([]);
+        expect(errors, `Errors captured during test:\n${errors.join('\n')}`).toEqual([]);
     }
 });
