@@ -1,9 +1,10 @@
-import { test, expect } from '@playwright/test';
+import { test as base, expect } from '@playwright/test';
 import { loginData } from '../test-data/login.data';
 import { LoginPage } from '../pages/login.page';
 import { paymentData } from '../test-data/payment.data';
 import { PaymentPage } from '../pages/payment.page';
 import { DashboardPage } from '../pages/dashboard.page';
+import { test } from './fixture';
 
 
 test.describe('Payment tests', () => {

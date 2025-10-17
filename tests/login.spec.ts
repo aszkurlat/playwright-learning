@@ -1,7 +1,8 @@
-import { test, expect } from '@playwright/test';
+import { test as base, expect } from '@playwright/test';
 import { loginData } from '../test-data/login.data';
 import { LoginPage } from '../pages/login.page';
 import { DashboardPage } from '../pages/dashboard.page';
+import { test } from './fixture';
 
 test.describe('User login to Demobank', () => {
 
@@ -12,7 +13,7 @@ test.describe('User login to Demobank', () => {
     loginPage = new LoginPage(page);
   });
 
-  test('Successful login with correct credentials', { tag: ["@login", "@smoke"], annotation: { type: 'Happy path', description: "Basic happy path test for login" }  }, async ({ page }) => {
+  test('Successful login with correct credentials', { tag: ["@login", "@smoke"], annotation: { type: 'Happy path', description: "Basic happy path test for login" } }, async ({ page }) => {
     // Act
     await loginPage.login(loginData.userId, loginData.userPassword);
 

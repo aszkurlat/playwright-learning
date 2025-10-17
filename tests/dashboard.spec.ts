@@ -1,8 +1,9 @@
-import { test, expect } from '@playwright/test';
+import { test as base, expect } from '@playwright/test';
 import { dashboardData } from '../test-data/dashboard.data';
 import { DashboardPage } from '../pages/dashboard.page';
 import { LoginPage } from '../pages/login.page';
 import { loginData } from '../test-data/login.data';
+import { test } from './fixture';
 
 test.describe('Dashboard tests', () => {
     test.describe.configure({ retries: 3 });
@@ -17,7 +18,7 @@ test.describe('Dashboard tests', () => {
         await loginPage.login(loginData.userId, loginData.userPassword);
     })
 
-    test.only('Quick payment with correct data', { tag: ["@dashboard", "@integration"], annotation: { type: 'documentation', description: 'https://jaktestowac.pl/course/playwright-wprowadzenie/' } }, async ({ page }) => {
+    test('Quick payment with correct data', { tag: ["@dashboard", "@integration"], annotation: { type: 'documentation', description: 'https://jaktestowac.pl/course/playwright-wprowadzenie/' } }, async ({ page }) => {
 
         // Act
         await page.waitForLoadState('domcontentloaded'); // ensure DOM is loaded (smart wait instead of static delay)
